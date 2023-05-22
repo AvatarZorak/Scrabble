@@ -84,6 +84,27 @@ void print_trie(struct node* root) {
     }
 }
 
+void free_darray(struct darray* arr) {
+    free(arr->nodes);
+    free(arr);
+}
+
+void free_trie(struct node* root) {
+    if(root->children->count == 0) {
+        free_darray(root->children);
+        free(root);
+
+        return;
+    }
+
+    for(int i = 0; i < root->children->count; i++) {
+        free_trie(root->children->nodes[i]);
+    }
+
+    free_darray(root->children);
+    free(root);
+}
+
 int main() {
 
     struct node* root = create_node(' ');
@@ -92,6 +113,8 @@ int main() {
     insert_word(root, "albatroz", 0);
 
     print_trie(root);
+
+    free_trie(root);
 
     return 0;
 }
