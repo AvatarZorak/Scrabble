@@ -12,6 +12,12 @@ int main()
 
     system("cls");
     printf("%d", output);
+    getch();
+
+    output = menuNumbers(0, 20, "Select number:");
+
+    system("cls");
+    printf("%d", output);
 
     return 0;
 }
