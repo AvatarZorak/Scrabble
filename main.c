@@ -3,21 +3,8 @@
 
 int main()
 {
-    char menuchoice[][STRINGSIZE] = {"test1\0",
-    "test2\0",
-    "test3\0",
-    "test4\0"};
-
-    int output = menuOptions(4, menuchoice);
-
-    system("cls");
-    printf("%d", output);
-    getch();
-
-    output = menuNumbers(0, 20, "Select number:");
-
-    system("cls");
-    printf("%d", output);
+    titlescreen();
+    pressanykey();
 
     return 0;
 }
