@@ -1,10 +1,8 @@
 #include <stdio.h>
-#include <time.h>
 #include "mainmenu.h"
 
 int main()
 {
-    srand(time(NULL));
     int rounds = 10; // rounds count
     int letters = 10; // letters count
     int highscore = 0;

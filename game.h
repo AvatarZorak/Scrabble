@@ -3,11 +3,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-int playRound(int count) // singular round; same for versus and solo
+#define ARRSIZE 64
+
+int playRound(int count, int seed) // singular round; same for versus and solo
 {
-    char letters[64];
-    char input[64] = "abc";
+    srand(seed);
+    char letters[ARRSIZE];
+    char input[ARRSIZE] = "abc";
+    char usedwords[ARRSIZE][ARRSIZE];
+    for(int i = 0; i < ARRSIZE; i++) strcpy(usedwords[i], "");
     int points = 0;
+
     printf("Letters: ");
     for(int i = 0; i < count; i++) // generate and print letters
     {
@@ -23,7 +29,17 @@ int playRound(int count) // singular round; same for versus and solo
         input[strlen(input)] = '\0';
         if(strcmp(input, "-\0") == 0) break;
 
-        for(int i = 0; i < strlen(input); i++) // to do: is word repeated? is word in trie?
+        for(int i = 0; i < STRINGSIZE && strcmp(usedwords[i], "\0") != 0; i++) // check if word is used already
+        {
+            if(strcmp(input, usedwords[i]) == 0)
+            {
+                printf("Invalid word provided! Words cannot be repeated\n");
+                strcpy(input, "");
+            }
+        }
+        if(strcmp(input, "\0") == 0) continue;
+
+        for(int i = 0; i < strlen(input); i++) // to do: is word in trie?
         {
             if(input[i] < 'a' || input[i] > 'z') // invalid letter: not a-z
             {
@@ -47,6 +63,15 @@ int playRound(int count) // singular round; same for versus and solo
                 points -= i;
                 break;
             }
+
+            for(int i = 0; 1; i++) // add word to used words
+            {
+                if(strcmp(usedwords[i], "\0") == 0)
+                {
+                    strcpy(usedwords[i], input);
+                    break;
+                }
+            }
         }
 
         for(int i = 0; i < count; i++) // revert used letters from capital
@@ -67,8 +92,9 @@ int solo(int rounds, int letters)
     int points = 0;
     for(int i = 0; i < rounds; i++) // each round
     {
+        int seed = time(NULL);
         printf("Round %d/%d:\n\n", i+1, rounds);
-        points += playRound(letters);
+        points += playRound(letters, seed);
         system("cls");
     }
     printf("Game finished! Player got %d point/s!\n\nPress any key to continue...", points);
@@ -79,5 +105,32 @@ int solo(int rounds, int letters)
 int versus(int rounds, int letters)
 {
     system("cls");
-    return 11;
+    int points1 = 0;
+    int points2 = 0;
+    for(int i = 0; i < rounds; i++) // each round
+    {
+        int seed = time(NULL);
+        printf("Round %d/%d of Player#1:\n\n", i+1, rounds);
+        points1 += playRound(letters, seed);
+        system("cls");
+
+        printf("Player#1 finished their round! Time for Player#2!\n\nPress any key to continue...");
+        getch();
+        system("cls");
+
+        printf("Round %d/%d of Player#2:\n\n", i+1, rounds);
+        points2 += playRound(letters, seed);
+        system("cls");
+
+        if(i+1 != rounds)
+        {
+            printf("Player#2 finished their round! Time for Player#1!\n\nPress any key to continue...");
+            getch();
+            system("cls");
+        }
+    }
+    printf("Game finished! Player#1 got %d point/s and Player#2 got %d point/s!\n\nPress any key to continue...", points1, points2);
+    getch();
+    if(points1 > points2) return points1;
+    else return points2;
 }
