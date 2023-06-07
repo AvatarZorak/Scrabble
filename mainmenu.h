@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "menu.h"
+#include "game.h"
 
 void titlescreen() // title screen info
 {
@@ -61,9 +62,26 @@ int settings()
 {
     char menu[][STRINGSIZE] = {
         "Edit number of rounds\0",
-        "Edit number of letters\0"
+        "Edit number of letters\0",
+        "Back\0"
     };
 
-    if(menuOptions(2, menu)) return (editLetters() * -1);
-    else return editRounds();
+    int output = menuOptions(3, menu);
+    if(output == 1) return (editLetters() * -1); // letters
+    else if(output == 2) return 0; // back
+    else return editRounds(); // rounds
+}
+
+int gamemenu(int rounds, int letters)
+{
+    char menu[][STRINGSIZE] = {
+        "Solo\0",
+        "Versus\0",
+        "Back\0"
+    };
+
+    int output = menuOptions(3, menu);
+    if(output == 1) return versus(rounds, letters); // versus
+    else if(output == 2) return -1; // back
+    else return solo(rounds, letters); // solo
 }

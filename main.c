@@ -1,10 +1,13 @@
 #include <stdio.h>
+#include <time.h>
 #include "mainmenu.h"
 
 int main()
 {
+    srand(time(NULL));
     int rounds = 10; // rounds count
     int letters = 10; // letters count
+    int highscore = 0;
 
     titlescreen();
     while(1)
@@ -20,6 +23,7 @@ int main()
         {
             system("cls");
             printf("Displaying stats of current playing session:\n\n");
+            printf("Highscore: %d\n", highscore);
             printf("Count of rounds: %d\n", rounds);
             printf("Count of letters given per round: %d\n\n", letters);
             pressanykey();
@@ -29,11 +33,16 @@ int main()
             system("cls");
             pressanykey();
         }
+        else if(output == 0) // game
+        {
+            int score = gamemenu(rounds, letters);
+            if(score > highscore) highscore = score;
+        }
         else if(output == 1) // settings
         {
             output = settings();
             if(output > 0) rounds = output;
-            else letters = (output * -1);
+            else if(output < 0) letters = (output * -1);
         }
     }
 
