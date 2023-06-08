@@ -134,5 +134,7 @@ int main() {
 
     free_trie(root);
 
+    fclose(dictionary);
+
     return 0;
 }
