@@ -112,14 +112,6 @@ void print_trie(struct node* root) {
     }
 }
 
-void printDictionary(char** dictionary, int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        printf("Word number %d: %s\n", i, dictionary[i]);
-    }
-}
-
 bool is_word_valid(char* word)
 {
     for(int i = 0; word[i] != NULL; i++)
@@ -140,14 +132,14 @@ void add_word_to_dictionary(struct node* root, FILE* file)
     printf("\nEnter word to insert to dictionary...\n");
     printf("      Word : ");
 
-
-
     do
     {
-    scanf("%s", word);
-    if(is_word_valid(word) != false) break;
-    printf("\n Invalid input for word!\n");
-    printf("      Word : ");
+        scanf("%s", word);
+
+        if(is_word_valid(word) != false) break;
+
+        printf("\n Invalid input for word!\n");
+        printf("      Word : ");
     }while(1);
 
 
