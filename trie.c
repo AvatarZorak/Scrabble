@@ -49,6 +49,7 @@ void darray_add(struct darray* arr, char letter) {
     arr->nodes[arr->count++] = create_node(letter);
 }
 
+
 void insert_word(struct node* root, char* word, int current_index) {
     struct node* contains = darray_contains(root->children, word[current_index]);
 
@@ -105,12 +106,29 @@ void free_trie(struct node* root) {
     free(root);
 }
 
-int main() {
-
+struct node* generate_trie(FILE* dictionary) {
     struct node* root = create_node(' ');
 
-    insert_word(root, "alex", 0);
-    insert_word(root, "albatroz", 0);
+    char* word = calloc(20, sizeof(char));
+
+    while(true) {
+        if(fscanf(dictionary, "%s", word) == EOF) {
+            break;
+        } else {
+            insert_word(root, word, 0);
+        }
+    }
+
+    free(word);
+
+    return root;
+}
+
+int main() {
+
+    FILE* dictionary = fopen("dictionary.txt", "r");
+
+    struct node* root = generate_trie(dictionary);
 
     print_trie(root);
 
