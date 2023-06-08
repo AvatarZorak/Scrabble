@@ -2,10 +2,11 @@
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
+#include "betterPointCalc.h"
 
 #define ARRSIZE 64
 
-int playRound(int count, int seed) // singular round; same for versus and solo
+/*int playRound(int count, int seed) // singular round; same for versus and solo
 {
     srand(seed);
     char letters[ARRSIZE];
@@ -84,7 +85,7 @@ int playRound(int count, int seed) // singular round; same for versus and solo
     }
 
     return points;
-}
+}*/
 
 int solo(int rounds, int letters)
 {
