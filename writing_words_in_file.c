@@ -58,8 +58,10 @@ void darray_add(struct darray* arr, char letter)
     arr->nodes[arr->count++] = create_node(letter);
 }
 
-bool search_word(struct node* root, char* word, int current_index) {
-    if (current_index == strlen(word)) {
+bool search_word(struct node* root, char* word, int current_index)
+{
+    if (current_index == strlen(word))
+    {
         return root->is_word;
     }
 
@@ -130,7 +132,7 @@ void add_word_to_dictionary(struct node* root, FILE* file)
     char* word = calloc(20, sizeof(char));
 
     printf("\nEnter word to insert to dictionary...\n");
-    printf("      Word : ");
+    printf("\nInsert word : ");
 
     do
     {
@@ -138,8 +140,8 @@ void add_word_to_dictionary(struct node* root, FILE* file)
 
         if(is_word_valid(word) != false) break;
 
-        printf("\n Invalid input for word!\n");
-        printf("      Word : ");
+        printf("\nInvalid input for word!\n");
+        printf("\nInsert word : ");
     }while(1);
 
 
@@ -148,7 +150,7 @@ void add_word_to_dictionary(struct node* root, FILE* file)
        printf("\nThis word already exists in the dectionary!");
     }else
     {
-        printf("Successfully inserted word...");
+        printf("\nSuccessfully inserted word!\n");
 
         insert_word(root, word, 0);
 
