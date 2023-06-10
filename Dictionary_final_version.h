@@ -296,42 +296,18 @@ struct node* generate_trie(const char* filename) {
 // | o_o |
 //  \_^_/
 
-/*int main()
+struct node *get_root()
 {
-
-    FILE *dict_file;
-
-    dict_file = fopen("dictionary.txt", "a");
-
-    if (dict_file == NULL)
-    {
-        printf("Unable to open the file.\n");
-        return 0;
-    }
-
     // Read the Trie from the file
     struct node* root;
     FILE* bin_file = fopen(binary_file_name, "r");
     if(fgetc(bin_file) != EOF){
         fclose(bin_file);
         root = read_trie_from_file(binary_file_name);
-        delete_trie_data(binary_file_name); //deleting it, because we read the tree, saved it in the root
     } else{
         root = generate_trie(dictionary_file_name);
         fclose(bin_file);
     }
 
-    print_trie(root);
-    // Perform operations on the Trie
-    add_word_to_dictionary(root, dictionary_file_name);
-
-    print_trie(root);
-
-    write_trie_to_file(root, binary_file_name);
-
-    // Free the Trie
-    free_trie(root);
-
-    fclose(dict_file);
-
-}*/
+    return root;
+}

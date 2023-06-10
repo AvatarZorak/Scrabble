@@ -14,16 +14,7 @@ int main()
         return 0;
     }
 
-    // Read the Trie from the file
-    struct node* root;
-    FILE* bin_file = fopen(binary_file_name, "r");
-    if(fgetc(bin_file) != EOF){
-        fclose(bin_file);
-        root = read_trie_from_file(binary_file_name);
-    } else{
-        root = generate_trie(dictionary_file_name);
-        fclose(bin_file);
-    }
+    struct node *root = get_root();
 
     int rounds = 10; // rounds count
     int letters = 10; // letters count

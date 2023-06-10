@@ -53,16 +53,16 @@ int playRound(int count, int seed) {
         input[strlen(input)] = '\0';
         if (strcmp(input, "-\0") == 0) break;
 
-        if(!search_word(root, input, 0))
+        if(!search_word(get_root(), input, 0))
         {
-            printf("Invalid word provided! Words cannot be repeated\n");
+            printf("Invalid word provided! Word must be in dictionary.\n");
             strcpy(input, "");
         }
 
         // Check if word is already used
         for (int i = 0; i < ARRSIZE && strcmp(usedwords[i], "\0") != 0; i++) {
             if (strcmp(input, usedwords[i]) == 0) {
-                printf("Invalid word provided! Words cannot be repeated\n");
+                printf("Invalid word provided! Words cannot be repeated.\n");
                 strcpy(input, "");
             }
         }
@@ -72,9 +72,9 @@ int playRound(int count, int seed) {
         points += wordPoints;
 
         if (wordPoints < strlen(input)) {
-            printf("Invalid word provided! Words must be written with a-z only\n");
-        } else if (wordPoints == 0) {
             printf("Invalid word provided! Used ungiven letter.\n");
+        } else if (wordPoints == 0) {
+            printf("Invalid word provided! Words must be written with a-z only.\n");
         } else {
             for (int i = 0; i < ARRSIZE; i++) {
                 if (strcmp(usedwords[i], "\0") == 0) {
